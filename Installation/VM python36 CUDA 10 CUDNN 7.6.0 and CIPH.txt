@@ -38,13 +38,13 @@ export PATH="/usr/local/cuda-10.0/bin:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda-10.0/lib64:$LD_LIBRARY_PATH"
 
 # install CIPH software
-# first install git
+# first install this github location
 
 sudo apt update
 sudo apt install git
 git clone https://github.com/claessenskris/CIHP_PGN.git
 
-# Download pre-trained model 
+# Download pre-trained model from google drive
 
 mkdir checkpoint # make checkpoint directory
 cd checkpoint
@@ -57,5 +57,3 @@ sudo apt update
 sudo apt install unzip
 
 unzip CIHP_pgn.zip
-
-
