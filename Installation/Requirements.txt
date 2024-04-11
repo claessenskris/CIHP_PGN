@@ -1,1 +1,5 @@
-x
+scipy
+tensorflow-gpu==1.15
+opencv-python
+Pillow
+matplotlib
