@@ -1,0 +1,61 @@
+When creating the VM select as Ubuntu 18.04 LTS Pro Server
+
+# check also https://towardsdatascience.com/installing-cuda-on-google-cloud-platform-in-10-minutes-9525d874c8c1
+
+# Check the Python version:
+
+python3 --version # should be "Python 3.6.9"
+
+# install NVIDIA driver (cfr. script of latest nvidia driver)
+
+sudo nano /etc/modprobe.d/blacklist-nouveau.conf # disable native GPU driver from Linux
+
+# add this in the file & save
+---
+blacklist nouveau
+options nouveau modeset=0
+---
+
+sudo update-initramfs -u
+sudo reboot
+
+# install CUDA 10.0 
+
+wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux
+sudo sh cuda_10.0.130_410.48_linux
+
+# We need cudnn 7.6.0 
+
+wget https://developer.download.nvidia.com/compute/redist/cudnn/v7.6.0/Ubuntu18_04-x64/libcudnn7_7.6.0.64-1+cuda10.0_amd64.deb
+
+sudo dpkg -i libcudnn7_7.6.0.64-1+cuda10.0_amd64.deb
+
+sudo cp cuda/include/cudnn*.h /usr/local/cuda-10.0/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda-10.0/lib64
+sudo chmod a+r /usr/local/cuda-10.0/include/cudnn*.h /usr/local/cuda-10.0/lib64/libcudnn*
+
+export PATH="/usr/local/cuda-10.0/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-10.0/lib64:$LD_LIBRARY_PATH"
+
+# install CIPH software
+# first install git
+
+sudo apt update
+sudo apt install git
+git clone https://github.com/claessenskris/CIHP_PGN.git
+
+# Download pre-trained model 
+
+mkdir checkpoint # make checkpoint directory
+cd checkpoint
+
+pip install gdown # install tool to download the model 
+
+gdown https://drive.google.com/uc?id=1Mqpse5Gen4V4403wFEpv3w3JAsWw2uhk
+
+sudo apt update
+sudo apt install unzip
+
+unzip CIHP_pgn.zip
+
+
