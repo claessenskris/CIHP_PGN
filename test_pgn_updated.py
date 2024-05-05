@@ -182,7 +182,7 @@ def main():
     parsing_vis_dir = './CIHP/output/cihp_parsing_maps_vis'
     if not os.path.exists(parsing_vis_dir):
         os.makedirs(parsing_vis_dir)
-    edge_dir = './CIHP/cihp_edge_maps'
+    edge_dir = './CIHP/output/cihp_edge_maps'
     if not os.path.exists(edge_dir):
         os.makedirs(edge_dir)
     # Iterate over training steps.
@@ -212,8 +212,6 @@ def main():
 
     coord.request_stop()
     coord.join(threads)
-    
+
 if __name__ == '__main__':
     main()
-
-##############################################################
