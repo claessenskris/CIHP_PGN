@@ -19,9 +19,9 @@ from utils import *
 print ('Initialisation')
 
 N_CLASSES = 20
-DATA_DIR = './CIHP/input'
-LIST_PATH = './CIHP/input/list/val.txt'
-DATA_ID_LIST = './CIHP/input/list/val_id.txt'
+DATA_DIR = './CIHP/CIHP_input' #ToDo should be done better
+LIST_PATH = './CIHP/CIHP_input/list/val.txt' #ToDo should be done better
+DATA_ID_LIST = './CIHP/CIHP_input/list/val_id.txt' #ToDo should be done better
 with open(DATA_ID_LIST, 'r') as f:
     NUM_STEPS = len(f.readlines()) 
 RESTORE_FROM = './checkpoint/CIHP_pgn'
@@ -176,13 +176,13 @@ def main():
     threads = tf.train.start_queue_runners(coord=coord, sess=sess)
 
     # evaluate prosessing
-    parsing_dir = './CIHP/output/cihp_parsing_maps'
+    parsing_dir = './CIHP/CIHP_output/cihp_parsing_maps' #ToDo should be done better
     if not os.path.exists(parsing_dir):
         os.makedirs(parsing_dir)
-    parsing_vis_dir = './CIHP/output/cihp_parsing_maps_vis'
+    parsing_vis_dir = './CIHP/CIHP_output/cihp_parsing_maps_vis' #ToDo should be done better
     if not os.path.exists(parsing_vis_dir):
         os.makedirs(parsing_vis_dir)
-    edge_dir = './CIHP/output/cihp_edge_maps'
+    edge_dir = './CIHP/CIHP_output/cihp_edge_maps' #ToDo should be done better
     if not os.path.exists(edge_dir):
         os.makedirs(edge_dir)
     # Iterate over training steps.
@@ -215,3 +215,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+##############################################################
