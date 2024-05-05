@@ -19,9 +19,9 @@ from utils import *
 print ('Initialisation')
 
 N_CLASSES = 20
-DATA_DIR = './datasets/CIHP'
-LIST_PATH = './datasets/CIHP/list/val.txt'
-DATA_ID_LIST = './datasets/CIHP/list/val_id.txt'
+DATA_DIR = './CIHP/input'
+LIST_PATH = './CIHP/input/list/val.txt'
+DATA_ID_LIST = './CIHP/input/list/val_id.txt'
 with open(DATA_ID_LIST, 'r') as f:
     NUM_STEPS = len(f.readlines()) 
 RESTORE_FROM = './checkpoint/CIHP_pgn'
@@ -176,10 +176,13 @@ def main():
     threads = tf.train.start_queue_runners(coord=coord, sess=sess)
 
     # evaluate prosessing
-    parsing_dir = './output/cihp_parsing_maps'
+    parsing_dir = './CIHP/output/cihp_parsing_maps'
     if not os.path.exists(parsing_dir):
         os.makedirs(parsing_dir)
-    edge_dir = './output/cihp_edge_maps'
+    parsing_vis_dir = './CIHP/output/cihp_parsing_maps_vis'
+    if not os.path.exists(parsing_vis_dir):
+        os.makedirs(parsing_vis_dir)
+    edge_dir = './CIHP/cihp_edge_maps'
     if not os.path.exists(edge_dir):
         os.makedirs(edge_dir)
     # Iterate over training steps.
@@ -193,9 +196,9 @@ def main():
         
         msk = decode_labels(parsing_, num_classes=N_CLASSES)
         parsing_im = Image.fromarray(msk[0])
-        parsing_im.save('{}/{}_vis.png'.format(parsing_dir, img_id))
+        parsing_im.save('{}/{}_vis.png'.format(parsing_vis_dir, img_id))
         cv2.imwrite('{}/{}.png'.format(parsing_dir, img_id), parsing_[0,:,:,0])
-        sio.savemat('{}/{}.mat'.format(parsing_dir, img_id), {'data': scores[0,:,:]})
+#        sio.savemat('{}/{}.mat'.format(parsing_dir, img_id), {'data': scores[0,:,:]})
         
         cv2.imwrite('{}/{}.png'.format(edge_dir, img_id), edge_[0,:,:,0] * 255)
 
@@ -210,9 +213,7 @@ def main():
     coord.request_stop()
     coord.join(threads)
     
-
-
 if __name__ == '__main__':
     main()
 
-##############################################################333
+##############################################################
