@@ -37,6 +37,12 @@ sudo chmod a+r /usr/local/cuda-10.0/include/cudnn*.h /usr/local/cuda-10.0/lib64/
 export PATH="/usr/local/cuda-10.0/bin:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda-10.0/lib64:$LD_LIBRARY_PATH"
 
+sudo nano ~/.bashrc # make sure that the PATH's are set during start-up
+
+# to be added into this file
+export PATH="/usr/local/cuda-10.0/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-10.0/lib64:$LD_LIBRARY_PATH"
+
 # install CIPH software
 # first install this github location
 
@@ -48,7 +54,6 @@ git clone https://github.com/claessenskris/CIHP_PGN.git
 
 mkdir checkpoint # make checkpoint directory
 cd checkpoint
-
 pip install gdown # install tool to download the model 
 
 gdown https://drive.google.com/uc?id=1Mqpse5Gen4V4403wFEpv3w3JAsWw2uhk
