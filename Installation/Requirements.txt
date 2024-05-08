@@ -3,3 +3,5 @@ tensorflow-gpu==1.15
 opencv-python
 Pillow
 matplotlib
+--upgrade google-api-python-client
+--upgrade google-cloud-storage
