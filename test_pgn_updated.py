@@ -152,11 +152,17 @@ def main():
             print (image_list[step])
         img_split = image_list[step].split('/')
         img_id = img_split[-1][:-4]
-        
+
         msk = decode_labels(parsing_, num_classes=N_CLASSES)
         parsing_im = Image.fromarray(msk[0])
-        parsing_im.save('{}/{}_vis.png'.format(parsing_vis_dir, img_id))
-        cv2.imwrite('{}/{}.png'.format(parsing_dir, img_id), parsing_[0,:,:,0])
+
+        parsing_im_resized = parsing_im.resize((768, 1024), Image.LANCZOS) # highest quality of upsampling
+        parsing_im_resized.save('{}/{}_vis.png'.format(parsing_vis_dir, img_id))
+
+        parsing_new = parsing_[0, :, :, 0]
+        parsing_new_image = Image.fromarray((parsing_new).astype(np.uint8))  # Ensure correct format
+        parsing_im_resized = parsing_new_image.resize((768, 1024), Image.LANCZOS)
+        parsing_im_resized.save('{}/{}.png'.format(parsing_dir, img_id))
 
     coord.request_stop()
     coord.join(threads)
