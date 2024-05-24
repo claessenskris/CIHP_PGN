@@ -25,6 +25,15 @@ with open(DATA_ID_LIST, 'r') as f:
     NUM_STEPS = len(f.readlines()) 
 RESTORE_FROM = './checkpoint/CIHP_pgn'
 
+# resizing of images & saving it back on the location (not ideal, but it works)
+
+All_images_files = DATA_DIR + '*.jpg'
+files_image = glob(All_images_files)
+for file_image in files_image: # loop over all images
+    image = cv2.imread(file_image, cv2.IMREAD_UNCHANGED)
+    output = cv2.resize(image, (384, 512), interpolation = cv2.INTER_NEAREST)
+    cv2.imwrite(file_image, output)
+
 def main():
     """Create the model and start the evaluation process."""
 
@@ -149,7 +158,6 @@ def main():
         parsing_, scores = sess.run([pred_all, pred_scores])
         if step % 100 == 0:
             print('step {:d}'.format(step))
-            print (image_list[step])
         img_split = image_list[step].split('/')
         img_id = img_split[-1][:-4]
 
