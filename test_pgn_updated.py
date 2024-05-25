@@ -27,12 +27,12 @@ RESTORE_FROM = './checkpoint/CIHP_pgn'
 
 # resizing of images & saving it back on the location (not ideal, but it works)
 
-All_images_files = DATA_DIR + '*.jpg'
-files_image = glob(All_images_files)
-for file_image in files_image: # loop over all images
-    image = cv2.imread(file_image, cv2.IMREAD_UNCHANGED)
-    output = cv2.resize(image, (384, 512), interpolation = cv2.INTER_NEAREST)
-    cv2.imwrite(file_image, output)
+#All_images_files = DATA_DIR + '*.jpg'
+#files_image = glob(All_images_files)
+#for file_image in files_image: # loop over all images
+#    image = cv2.imread(file_image, cv2.IMREAD_UNCHANGED)
+#    output = cv2.resize(image, (384, 512), interpolation = cv2.INTER_NEAREST)
+#    cv2.imwrite(file_image, output)
 
 def main():
     """Create the model and start the evaluation process."""
@@ -164,13 +164,13 @@ def main():
         msk = decode_labels(parsing_, num_classes=N_CLASSES)
         parsing_im = Image.fromarray(msk[0])
 
-        parsing_im_resized = parsing_im.resize((768, 1024), Image.LANCZOS) # highest quality of upsampling
-        parsing_im_resized.save('{}/{}_vis.png'.format(parsing_vis_dir, img_id))
+#        parsing_im = parsing_im.resize((768, 1024), Image.LANCZOS) # highest quality of upsampling
+        parsing_im.save('{}/{}_vis.png'.format(parsing_vis_dir, img_id))
 
         parsing_new = parsing_[0, :, :, 0]
         parsing_new_image = Image.fromarray((parsing_new).astype(np.uint8))  # Ensure correct format
-        parsing_im_resized = parsing_new_image.resize((768, 1024), Image.LANCZOS)
-        parsing_im_resized.save('{}/{}.png'.format(parsing_dir, img_id))
+ #       parsing_new_image = parsing_new_image.resize((768, 1024), Image.LANCZOS)
+        parsing_new_image.save('{}/{}.png'.format(parsing_dir, img_id))
 
     coord.request_stop()
     coord.join(threads)
